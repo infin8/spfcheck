@@ -65,7 +65,10 @@ class SPFCheck:
         """ Basic DNS TXT query for the domain domain. """
 
         try:
-            answers = resolver.query(domain, 'TXT')
+            try:
+                answers = resolver.query(domain, 'TXT')
+            except:
+                answers = resolver.query(domain, 'SPF')
         except Exception, e:
             if cls._logger is not None:
                 cls._logger.critcal("Error during DNS query.")
